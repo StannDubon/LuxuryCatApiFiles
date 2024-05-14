@@ -1,6 +1,7 @@
 <?php	
 
-require_once('../../helpers/database.php')
+require_once('../../helpers/database.php');
+
 class TipoadminHandler{
 
     protected $tipo_admin_id = null;
@@ -39,8 +40,8 @@ class TipoadminHandler{
 
     public function updateRow(){
         $sql = 'UPDATE tb_tipos_admin
-                SET tipo_admin_nombre = ?,
-                WHERE tipo_admin_id = ?';
+                SET tipo_admin_nombre = ?
+                WHERE tipo_admin_id = ?;';
         $params = array($this->tipo_admin_nombre, $this->tipo_admin_id);
         return Database::executeRow($sql, $params);
     }
