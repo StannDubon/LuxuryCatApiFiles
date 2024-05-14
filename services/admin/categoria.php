@@ -27,10 +27,10 @@ if (isset($_GET['action'])) {
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$categoria->setNombre($_POST['nombreCategoria']) or
+                    !$categoria->setNombre($_POST['nombreCategoria']) or 
                     !$categoria->setDescripcion($_POST['descripcionCategoria']) or
-                    !$categoria->setImagen($_FILES['imagenCategoria']) or
-                    !$categoria->setEstado($_FILES['estadoCategoria'])
+                    !$categoria->setEstado($_POST['estadoCategoria']) or
+                    !$categoria->setImagen($_FILES['imagenCategoria'])
                 ) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->createRow()) {
@@ -66,7 +66,8 @@ if (isset($_GET['action'])) {
                     !$categoria->setFilename() or
                     !$categoria->setNombre($_POST['nombreCategoria']) or
                     !$categoria->setDescripcion($_POST['descripcionCategoria']) or
-                    !$categoria->setImagen($_FILES['imagenCategoria'], $categoria->getFilename())
+                    !$categoria->setEstado($_POST['estadoCategoria']) or
+                    !$categoria->setImagen($_FILES['imagenCategoria']) or $categoria->getFilename()
                 ) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->updateRow()) {

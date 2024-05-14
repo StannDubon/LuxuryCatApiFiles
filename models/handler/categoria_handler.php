@@ -67,9 +67,8 @@ class CategoriaHandler
     public function deleteRow()
     {
         $sql = 'DELETE FROM tb_categorias
-                WHERE categoria_id = ?';
+                WHERE categoria_id = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
 }
-?>
