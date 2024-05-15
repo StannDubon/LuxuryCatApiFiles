@@ -130,3 +130,22 @@ VALUES('low'), ('mid'), ('high'), ('root');
 
 INSERT INTO tb_categorias(categoria_nombre, categoria_descripcion, categoria_estado)
 VALUES('No Definido', 'Articulo sin categoria definida', 1)
+
+
+/* UTILITIES */
+
+DELIMITER //
+
+CREATE PROCEDURE eliminarCategoria(IN p_categoria_id INT)
+BEGIN
+    -- Actualizar los productos relacionados con la categoría eliminada
+    UPDATE tb_productos 
+    SET categoria_id = 1 
+    WHERE categoria_id = p_categoria_id;
+    
+    -- Eliminar la categoría
+    DELETE FROM tb_categorias 
+    WHERE categoria_id = p_categoria_id;
+END //
+
+DELIMITER ;		
