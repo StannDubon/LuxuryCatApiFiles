@@ -1,13 +1,13 @@
 <?php
 
-require_once('../../models/data/comentario_data.php');
+require_once('../../models/data/pedido_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $comentario = new ComentarioData;
+    $pedido = new PedidoData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -17,7 +17,7 @@ if (isset($_GET['action'])) {
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
-                } elseif ($result['dataset'] = $comentario->searchRows()) {
+                } elseif ($result['dataset'] = $pedido->searchRows()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } else {
@@ -26,7 +26,7 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'readAll':
-                if ($result['dataset'] = $comentario->readAll()) {
+                if ($result['dataset'] = $pedido->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
@@ -34,9 +34,9 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$comentario->setId($_POST['idComentario'])) {
-                    $result['error'] = $comentario->getDataError();
-                } elseif ($result['dataset'] = $comentario->readOne()) {
+                if (!$pedido->setId($_POST['idPedido'])) {
+                    $result['error'] = $pedido->getDataError();
+                } elseif ($result['dataset'] = $pedido->readOne()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'Categoría inexistente';
@@ -44,22 +44,22 @@ if (isset($_GET['action'])) {
                 break;
             case 'deleteRow':
                 if (
-                    !$comentario->setId($_POST['idComentario'])
+                    !$pedido->setId($_POST['idPedido'])
                 ) {
-                    $result['error'] = $comentario->getDataError();
-                } elseif ($comentario->deleteRow()) {
+                    $result['error'] = $pedido->getDataError();
+                } elseif ($pedido->deleteRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Categoría eliminada correctamente';
-                    } else {
+                } else {
                     $result['error'] = 'Ocurrió un problema al eliminar la categoría';
                 }
                 break;
             case 'changeStatus':
                 if (
-                    !$comentario->setId($_POST['idComentario'])
+                    !$pedido->setId($_POST['idPedido'])
                 ) {
-                    $result['error'] = $comentario->getDataError();
-                } elseif ($comentario->changeStatus()) {
+                    $result['error'] = $pedido->getDataError();
+                } elseif ($pedido->changeStatus()) {
                     $result['status'] = 1;
                     $result['message'] = 'Categoría cambiada correctamente';
                 } else {

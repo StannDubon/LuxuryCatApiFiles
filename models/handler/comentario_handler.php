@@ -49,9 +49,16 @@ class ComentarioHandler
                 INNER JOIN tb_detalles_pedidos dp ON c.detalle_pedido_id = dp.detalle_pedido_id
                 INNER JOIN tb_productos p ON dp.producto_id = p.producto_id
                 INNER JOIN tb_pedidos ped ON dp.pedido_id = ped.pedido_id
-                INNER JOIN tb_usuarios u ON ped.usuario_id = u.usuario_id; where comentario_id = ?;";
+                INNER JOIN tb_usuarios u ON ped.usuario_id = u.usuario_id where comentario_id = ?;";
         $params = array($this->id);
         return Database::getRow($sql, $params);
+    }
+
+    public function deleteRow()
+    {
+        $sql = "CALL eliminarComentario(?);";
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
     }
 
     public function changeStatus()
