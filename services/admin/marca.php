@@ -5,8 +5,9 @@ if (isset($_GET['action'])) {
     session_start();
 
     $marca = new MarcaData;
-    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null)
-
+    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null);
+    if (isset($_SESSION['admin_id']) || true) {
+        $result['session'] = 1;
     switch ($_GET['action']) {
 
         case 'searchRows':
@@ -94,7 +95,7 @@ if (isset($_GET['action'])) {
 
         default:
             $result['error'] = 'Acción no disponible dentro de la sesión';
-    }
+    }}
 
     // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
     $result['exception'] = Database::getException();

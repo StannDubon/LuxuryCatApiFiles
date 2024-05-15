@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="save">
+        <input type="text" placeholder="marca" name="marca_nombre" id="marca_nombre">
+        <input type="radio" name="marca_estado" id="marca_estado" value="1">
+        <button type="submit">uwu</button>
+    </form>
+
+    <script src="components.js"></script>
+
+    <script>
+        const CATEGORIA_API = 'services/admin/marca.php';
+        document.getElementById('save').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const FORM = new FormData(document.getElementById('save'));
+            const DATA = await fetchData(CATEGORIA_API, 'createRow', FORM);
+            if (DATA.status) {
+                console.log(DATA.message)
+            } else {
+                console.log(DATA.error)
+            }
+        });
+    </script>
+</body>
+</html>

@@ -20,7 +20,7 @@ class MarcaHandler
     /* INSERTAR */
     public function createRow()
     {
-        $sql = 'CALL InsertarMarca(?, ?);';
+        $sql = 'INSERT INTO tb_marcas(marca_nombre, marca_estado) VALUES(?, ?)';
 
         $params = array($this->marca_nombre, $this->marca_estado);
         return Database::executeRow($sql, $params);
@@ -29,14 +29,14 @@ class MarcaHandler
     /* LEER TABLA */
     public function readAll()
     {
-        $sql = 'SELECT * FROM tb_marca';
+        $sql = 'SELECT * FROM tb_marcas';
         return Database::getRows($sql);
     }
 
     /* LEER ELEMENTO */
     public function readOne()
     {
-        $sql = 'SELECT * FROM tb_marca WHERE marca_id= ?';
+        $sql = 'SELECT * FROM tb_marcas WHERE marca_id= ?';
         $params = array($this->marca_id);
         return Database::getRow($sql, $params);
     }
@@ -44,7 +44,7 @@ class MarcaHandler
     /* ACTUALIZAR */
     public function updateRow()
     {
-        $sql = 'UPDATE tb_marca
+        $sql = 'UPDATE tb_marcas
                 SET marca_nombre = ?, marca_estado = ?
                 WHERE marca_id = ?';
         $params = array($this->marca_nombre, $this->marca_estado, $this->marca_id);
@@ -54,7 +54,7 @@ class MarcaHandler
     /* ELIMINAR */
     public function deleteRow()
     {
-        $sql = 'DELETE FROM tb_marca
+        $sql = 'DELETE FROM tb_marcas
                 WHERE marca_id = ?';
         $params = array($this->marca_id);
         return Database::executeRow($sql, $params);

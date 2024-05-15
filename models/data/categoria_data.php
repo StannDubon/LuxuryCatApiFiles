@@ -34,23 +34,6 @@ class CategoriaData extends CategoriaHandler
         }
     }
 
-    public function setImagen($file, $filename = null)
-    {
-        if (Validator::validateImageFile($file, 1000)) {
-            $this->imagen = Validator::getFilename();
-            return true;
-        } elseif (Validator::getFileError()) {
-            $this->data_error = Validator::getFileError();
-            return false;
-        } elseif ($filename) {
-            $this->imagen = $filename;
-            return true;
-        } else {
-            $this->imagen = 'default.png';
-            return true;
-        }
-    }
-
     public function setDescripcion($value, $min = 2, $max = 250)
     {
         if (!$value) {
@@ -66,30 +49,18 @@ class CategoriaData extends CategoriaHandler
             return false;
         }
     }
-
-    public function setFilename()
-    {
-        if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_categoria'];
-            return true;
-        } else {
-            $this->data_error = 'Categoría inexistente';
-            return false;
-        }
-    }
-
     
     // Método para establecer el estado de la marca.
     public function setEstado($value)
     {
         // Si $value es un booleano, lo transformamos en un número entero (0 o 1).
         if (is_bool($value)) {
-            $this->marca_estado = $value ? 1 : 0;
+            $this->estado = $value ? 1 : 0;
             return true;
         } 
         // Si $value es un número, verificamos que esté en el rango permitido (0 o 1).
         elseif (is_numeric($value) && ($value == 0 || $value == 1)) {
-            $this->marca_estado = intval($value); // Convertimos a entero por seguridad.
+            $this->estado = intval($value); // Convertimos a entero por seguridad.
             return true;
         } 
         // Si no es un booleano ni un número válido, retornamos false indicando error.
@@ -98,7 +69,7 @@ class CategoriaData extends CategoriaHandler
             return false;
         }
     }
-    
+
     public function getDataError()
     {
         return $this->data_error;

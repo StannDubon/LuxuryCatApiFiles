@@ -1,16 +1,16 @@
 <?php
 
 require_once('../../helpers/validator.php');
-require_once('../../models/handler/administrador_handler.php');
+require_once('../../models/handler/cliente_handler.php');
 
-class AdministradorData extends AdministradorHandler
+class UsuarioData extends UsuarioHandler
 {
     private $data_error = null;
 
     public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->admin_id = $value;
+            $this->usuario_id = $value;
             return true;
         } else {
             $this->data_error = 'El identificador del administrador es incorrecto';
@@ -24,7 +24,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El nombre debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->admin_nombre = $value;
+            $this->usuario_nombre = $value;
             return true;
         } else {
             $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -38,7 +38,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El apellido debe ser un valor alfabético';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->admin_apellido = $value;
+            $this->usuario_apellido = $value;
             return true;
         } else {
             $this->data_error = 'El apellido debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -52,7 +52,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El correo no es válido';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->admin_correo = $value;
+            $this->usuario_correo = $value;
             return true;
         } else {
             $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -66,7 +66,7 @@ class AdministradorData extends AdministradorHandler
             $this->data_error = 'El usuario debe ser un valor alfanumérico';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->admin_usuario = $value;
+            $this->usuario_usuario = $value;
             return true;
         } else {
             $this->data_error = 'El usuario debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -77,7 +77,7 @@ class AdministradorData extends AdministradorHandler
     public function setContraseña($value)
     {
         if (Validator::validatePassword($value)) {
-            $this->admin_contraseña = password_hash($value, PASSWORD_DEFAULT);
+            $this->usuario_contraseña = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
             $this->data_error = Validator::getPasswordError();
@@ -88,11 +88,11 @@ class AdministradorData extends AdministradorHandler
     public function setEstado($value)
     {
         if (is_bool($value)) {
-            $this->admin_estado = $value ? 1 : 0;
+            $this->usuario_estado = $value ? 1 : 0;
             return true;
         } 
         elseif (is_numeric($value) && ($value == 0 || $value == 1)) {
-            $this->admin_estado = intval($value); // Convertimos a entero por seguridad.
+            $this->usuario_estado = intval($value); // Convertimos a entero por seguridad.
             return true;
         } 
         else {
